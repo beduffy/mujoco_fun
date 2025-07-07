@@ -1,0 +1,17 @@
+<mujoco>
+  <asset>
+    <mesh name="link" file="link.stl"/>
+  </asset>
+
+  <worldbody>
+    <body name="base" pos="0 0 0">
+      <joint type="free"/>
+      <geom type="mesh" mesh="link"/>
+      <site name="grasp" pos="0 0 0.1" size="0.01"/>
+    </body>
+  </worldbody>
+
+  <actuator>
+    <motor name="hip" joint="base" ctrlrange="-1 1" gear="100"/>
+  </actuator>
+</mujoco>
