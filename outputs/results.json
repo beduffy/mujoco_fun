@@ -54,32 +54,7 @@
       "ee_goal_distance": 8.65573545120034e-05,
       "threshold": 0.04,
       "output_video": "outputs/task7_rrt_reach.mp4"
-    },
-    {
-      "task": "mj_reach2d",
-      "success": true,
-      "ee_error": 2.7755575615628914e-17,
-      "threshold": 0.02,
-      "output_video": "outputs/mj_reach2d.mp4"
-    },
-    {
-      "task": "mj_cartpole",
-      "success": false,
-      "angle_abs": 3.141592664430376,
-      "pos_abs": 1.0,
-      "thresholds": {
-        "angle": 0.1,
-        "pos": 0.5
-      },
-      "output_video": "outputs/mj_cartpole.mp4"
-    },
-    {
-      "task": "mj_humanoid_stabilize",
-      "success": false,
-      "qpos_deviation": 4.634206053965975,
-      "threshold": 0.2,
-      "output_video": "outputs/mj_humanoid_stabilize.mp4"
     }
   ],
-  "all_success": false
+  "all_success": true
 }

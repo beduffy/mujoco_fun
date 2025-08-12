@@ -43,3 +43,14 @@ MuJoCo:
   ```bash
   pytest -q
   ```
+
+## CLI
+- Run suite: `python3 cli.py run`
+- Run suite without MuJoCo: `python3 cli.py run --no-mujoco`
+- Benchmark: `python3 cli.py bench --seeds 2`
+- Tests: `python3 cli.py test`
+
+## Container
+- Build: `docker build -t headless-sim .`
+- Run suite: `docker run --rm -v $PWD/outputs:/app/outputs headless-sim`
+- Run tests: `docker run --rm headless-sim python -m pytest -q`

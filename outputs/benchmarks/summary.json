@@ -1,30 +1,30 @@
 {
   "task1_reach": {
     "success_rate": 1.0,
-    "avg_runtime_s": 34.70215964317322
+    "avg_runtime_s": 33.851547718048096
   },
   "task2_path_tracing": {
     "success_rate": 1.0,
-    "avg_runtime_s": 53.21432113647461
+    "avg_runtime_s": 52.76673412322998
   },
   "task3_pick_place": {
     "success_rate": 1.0,
-    "avg_runtime_s": 0.3767509460449219
+    "avg_runtime_s": 0.40062618255615234
   },
   "task4_obstacle_pick_place": {
     "success_rate": 1.0,
-    "avg_runtime_s": 22.752790212631226
+    "avg_runtime_s": 22.737937211990356
   },
   "task5_stacking": {
     "success_rate": 1.0,
-    "avg_runtime_s": 0.4724738597869873
+    "avg_runtime_s": 0.4897620677947998
   },
   "task6_figure_eight": {
     "success_rate": 1.0,
-    "avg_runtime_s": 65.70802664756775
+    "avg_runtime_s": 65.63645553588867
   },
   "task7_rrt_reach": {
     "success_rate": 1.0,
-    "avg_runtime_s": 10.874507188796997
+    "avg_runtime_s": 10.787567138671875
   }
 }

@@ -1,0 +1,7 @@
+numpy
+pybullet
+imageio
+imageio-ffmpeg
+pillow
+mujoco
+pytest
