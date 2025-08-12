@@ -49,6 +49,13 @@
       "output_video": "outputs/task6_figure_eight.mp4"
     },
     {
+      "task": "task7_rrt_reach",
+      "success": true,
+      "ee_goal_distance": 8.65573545120034e-05,
+      "threshold": 0.04,
+      "output_video": "outputs/task7_rrt_reach.mp4"
+    },
+    {
       "task": "mj_reach2d",
       "success": true,
       "ee_error": 2.7755575615628914e-17,

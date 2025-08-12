@@ -8,6 +8,7 @@ from tasks.task3_pick_place import run as run3
 from tasks.task4_obstacle_pick_place import run as run4
 from tasks.task5_stacking import run as run5
 from tasks.task6_figure_eight import run as run6
+from tasks.task7_rrt_reach import run as run7
 
 # Optional MuJoCo tasks
 HAS_MJ = False
@@ -33,6 +34,7 @@ if __name__ == "__main__":
     metrics.append(run4("outputs/task4_obstacle_pick_place.mp4"))
     metrics.append(run5("outputs/task5_stacking.mp4"))
     metrics.append(run6("outputs/task6_figure_eight.mp4"))
+    metrics.append(run7("outputs/task7_rrt_reach.mp4"))
 
     if HAS_MJ and not args.no_mujoco:
         metrics.append(run_mj_arm("outputs/mj_reach2d.mp4"))
