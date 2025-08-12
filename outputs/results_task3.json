@@ -1,7 +1,7 @@
 {
   "task": "task3_pick_place",
   "success": false,
-  "cube_to_goal_distance": 0.305784891931134,
-  "threshold": 0.05,
+  "cube_to_goal_distance": 1.1066122273462016,
+  "threshold": 0.01,
   "output_video": "outputs/task3_pick_place.mp4"
 }

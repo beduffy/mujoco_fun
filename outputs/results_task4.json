@@ -1,7 +1,7 @@
 {
   "task": "task4_obstacle_pick_place",
-  "success": false,
-  "cube_to_goal_distance": 0.5412049668744827,
-  "threshold": 0.06,
+  "success": true,
+  "cube_to_goal_distance": 0.0043311787923489995,
+  "threshold": 0.01,
   "output_video": "outputs/task4_obstacle_pick_place.mp4"
 }

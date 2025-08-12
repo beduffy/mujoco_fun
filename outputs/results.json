@@ -19,25 +19,25 @@
     {
       "task": "task3_pick_place",
       "success": false,
-      "cube_to_goal_distance": 0.305784891931134,
-      "threshold": 0.05,
+      "cube_to_goal_distance": 1.1066122273462016,
+      "threshold": 0.01,
       "output_video": "outputs/task3_pick_place.mp4"
     },
     {
       "task": "task4_obstacle_pick_place",
-      "success": false,
-      "cube_to_goal_distance": 0.5412049668744827,
-      "threshold": 0.06,
+      "success": true,
+      "cube_to_goal_distance": 0.0043311787923489995,
+      "threshold": 0.01,
       "output_video": "outputs/task4_obstacle_pick_place.mp4"
     },
     {
       "task": "task5_stacking",
       "success": false,
-      "cube_a_distance": 0.37108489273292844,
-      "cube_b_distance": 2.4133124171487177,
+      "cube_a_distance": 1.5908970057763177,
+      "cube_b_distance": 0.040948187455871365,
       "thresholds": {
-        "a": 0.05,
-        "b": 0.06
+        "a": 0.01,
+        "b": 0.01
       },
       "output_video": "outputs/task5_stacking.mp4"
     }
