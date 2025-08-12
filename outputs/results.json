@@ -42,15 +42,11 @@
       "output_video": "outputs/task5_stacking.mp4"
     },
     {
-      "task": "task6_sorting",
+      "task": "task6_figure_eight",
       "success": true,
-      "per_cube_distance": [
-        0.009684414555756268,
-        6.844020677813459e-05,
-        1.055678079955873e-05
-      ],
-      "threshold": 0.01,
-      "output_video": "outputs/task6_sorting.mp4"
+      "mean_track_error": 0.02157417030498927,
+      "threshold": 0.03,
+      "output_video": "outputs/task6_figure_eight.mp4"
     },
     {
       "task": "mj_reach2d",
