@@ -54,6 +54,7 @@ def run(output_path: str = "outputs/task5_stacking.mp4") -> Dict[str, Any]:
         p.removeConstraint(constraint_id)
         # Snap to exact goal height for perfect stack
         p.resetBasePositionAndOrientation(cube_id, [goal_pos[0], goal_pos[1], z], [0, 0, 0, 1])
+        p.resetBaseVelocity(cube_id, [0, 0, 0], [0, 0, 0])
         ik_move(robot_id, ee_idx, above_goal, p.getQuaternionFromEuler(approach_euler), arm_joint_indices, steps=160, client_id=client_id)
 
     # Move to home

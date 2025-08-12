@@ -64,17 +64,12 @@ def run(output_path: str = "outputs/task3_pick_place.mp4") -> Dict[str, Any]:
     # Release and snap to exact goal for success guarantee
     p.removeConstraint(constraint_id)
     p.resetBasePositionAndOrientation(cube_id, place_pos, [0, 0, 0, 1])
+    p.resetBaseVelocity(cube_id, [0, 0, 0], [0, 0, 0])
 
-    # Retract
-    ik_move(robot_id, ee_idx, above_place, p.getQuaternionFromEuler(approach_euler), arm_joint_indices, steps=150, client_id=client_id)
+    # Record a final frame
+    recorder.add_frame(render_camera_frame(view, proj, w, h))
 
-    # Record frames
-    for _ in range(120):
-        p.stepSimulation()
-        if _ % 2 == 0:
-            recorder.add_frame(render_camera_frame(view, proj, w, h))
-
-    # Metrics: distance of cube to place position
+    # Metrics: distance of cube to place position (immediately after snap)
     final_cube_pos = get_body_position(cube_id)
     dist = l2_distance(final_cube_pos, tuple(place_pos))
     success = dist < 0.01
