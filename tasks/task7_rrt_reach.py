@@ -4,6 +4,7 @@ from typing import Dict, Any
 
 from sim.utils import setup_simulation, get_default_camera, render_camera_frame, VideoRecorder, load_panda, ik_move, create_box
 from tools.rrt_planner import rrt
+from tools.rrt_planner import shortcut
 
 
 def run(output_path: str = "outputs/task7_rrt_reach.mp4") -> Dict[str, Any]:
@@ -27,6 +28,8 @@ def run(output_path: str = "outputs/task7_rrt_reach.mp4") -> Dict[str, Any]:
     low = np.array([0.40, -0.30, 0.15])
     high = np.array([0.80, 0.30, 0.45])
     path = rrt(ee_pos, goal, aabb_min, aabb_max, (low, high), max_iters=5000, step=0.03)
+    if path:
+        path = shortcut(path, aabb_min, aabb_max)
 
     # If planning failed, fall back to via point around obstacle
     if not path:

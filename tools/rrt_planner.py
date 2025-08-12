@@ -56,3 +56,18 @@ def rrt(start: np.ndarray, goal: np.ndarray, aabb_min: np.ndarray, aabb_max: np.
                     path.append(pts[cur])
                 return list(reversed(path))
     return []
+
+
+def shortcut(path: List[np.ndarray], aabb_min: np.ndarray, aabb_max: np.ndarray, max_trials: int = 200) -> List[np.ndarray]:
+    if len(path) < 3:
+        return path
+    rng = np.random.default_rng(0)
+    pts = [p.copy() for p in path]
+    for _ in range(max_trials):
+        if len(pts) < 3:
+            break
+        i = rng.integers(0, len(pts)-2)
+        j = rng.integers(i+2, len(pts))
+        if not segment_intersects_aabb(pts[i], pts[j], aabb_min, aabb_max):
+            pts = pts[:i+1] + pts[j:]
+    return pts

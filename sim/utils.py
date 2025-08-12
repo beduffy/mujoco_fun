@@ -140,3 +140,24 @@ def ik_move(robot_id: int, end_eff_idx: int, target_pos: Tuple[float, float, flo
         p.resetJointState(robot_id, j, joint_positions[i], targetVelocity=0.0, physicsClientId=client_id)
 
     step_simulation(steps, client_id)
+
+
+def wait_until_settled(body_id: int, client_id: int, lin_vel_thresh: float = 0.02, ang_vel_thresh: float = 0.05, stable_steps: int = 20, max_steps: int = 600) -> bool:
+    stable = 0
+    for i in range(max_steps):
+        lin, ang = p.getBaseVelocity(body_id, physicsClientId=client_id)
+        lin_n = 0.0 if lin is None else float(np.linalg.norm(lin))
+        ang_n = 0.0 if ang is None else float(np.linalg.norm(ang))
+        if lin_n < lin_vel_thresh and ang_n < ang_vel_thresh:
+            stable += 1
+        else:
+            stable = 0
+        p.stepSimulation(physicsClientId=client_id)
+        if stable >= stable_steps:
+            return True
+    return False
+
+
+def get_body_z(body_id: int, client_id: int) -> float:
+    pos, _ = p.getBasePositionAndOrientation(body_id, physicsClientId=client_id)
+    return float(pos[2])

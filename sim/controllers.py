@@ -25,6 +25,8 @@ def move_ee_towards(
             active_joint_indices.append(j)
     # Map from joint index to position in active vector
     joint_to_active_pos = {j: i for i, j in enumerate(active_joint_indices)}
+    # Nominal posture for nullspace (current posture)
+    nominal_arm = np.array([p.getJointState(robot_id, j, physicsClientId=client_id)[0] for j in arm_joint_indices])
 
     for _ in range(iters):
         ee_state = p.getLinkState(robot_id, ee_idx, physicsClientId=client_id)
@@ -57,12 +59,17 @@ def move_ee_towards(
 
         # Damped least squares for arm
         JJt = J_arm @ J_arm.T
-        qdot_arm = J_arm.T @ np.linalg.solve(JJt + damping * np.eye(3), v)
-
-        # Integrate on arm joints only
-        # Get current arm joint positions
+        qdot_task = J_arm.T @ np.linalg.solve(JJt + damping * np.eye(3), v)
+        # Nullspace towards nominal posture
         arm_states = p.getJointStates(robot_id, arm_joint_indices, physicsClientId=client_id)
         q_arm = np.array([s[0] for s in arm_states])
+        null_dir = 0.1 * (nominal_arm - q_arm)
+        N = np.eye(J_arm.shape[1]) - J_arm.T @ np.linalg.solve(JJt + damping * np.eye(3), J_arm)
+        qdot_arm = qdot_task + N @ null_dir
+        # Velocity limits
+        vmax = 1.0
+        qdot_arm = np.clip(qdot_arm, -vmax, vmax)
+
         q_arm_next = q_arm + qdot_arm * dt * inner_steps
 
         for i, j in enumerate(arm_joint_indices):

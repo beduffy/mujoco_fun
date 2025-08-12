@@ -8,11 +8,11 @@
   },
   "figure8": {
     "task": "figure8_perf",
-    "mean_error": 0.040274735478458175,
-    "max_error": 0.3327306494520328,
-    "path_length": 0.8868051806461312,
-    "smoothness": 7.652749701795744e-06,
-    "energy_proxy": 4.430367401456437
+    "mean_error": 0.040362883703156445,
+    "max_error": 0.3337208689135819,
+    "path_length": 0.8877410949040276,
+    "smoothness": 7.399495915018743e-06,
+    "energy_proxy": 4.4331455503555715
   },
   "rrt": {
     "task": "rrt_perf",
