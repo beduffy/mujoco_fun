@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>PyBullet Tasks Artifacts</title>
+<style>
+  body { font-family: system-ui, -apple-system, Segoe UI, Roboto, sans-serif; margin: 24px; color: #222; }
+  h1 { margin-bottom: 8px; }
+  .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 16px; }
+  .card { border: 1px solid #ddd; border-radius: 8px; padding: 12px; background: #fff; }
+  video, img { width: 100%; height: auto; border-radius: 6px; background: #000; }
+  .title { font-weight: 600; margin: 8px 0; }
+  .links a { margin-right: 12px; font-size: 14px; }
+  footer { margin-top: 24px; font-size: 14px; color: #555; }
+</style>
+</head>
+<body>
+<h1>PyBullet Tasks Artifacts</h1>
+<p>Open this file locally or serve the <code>/workspace/outputs</code> directory. Each card has an MP4, a GIF preview, and a PNG screenshot.</p>
+<div class="grid">
+  <div class="card">
+    <div class="title">Task 1: Reach</div>
+    <video controls src="task1_reach.mp4"></video>
+    <img src="screens/task1_reach.png" alt="Task 1 screenshot" />
+    <div class="links">
+      <a href="task1_reach.mp4">MP4</a>
+      <a href="gifs/task1_reach.gif">GIF</a>
+      <a href="screens/task1_reach.png">PNG</a>
+    </div>
+  </div>
+  <div class="card">
+    <div class="title">Task 2: Path Tracing</div>
+    <video controls src="task2_path_tracing.mp4"></video>
+    <img src="screens/task2_path_tracing.png" alt="Task 2 screenshot" />
+    <div class="links">
+      <a href="task2_path_tracing.mp4">MP4</a>
+      <a href="gifs/task2_path_tracing.gif">GIF</a>
+      <a href="screens/task2_path_tracing.png">PNG</a>
+    </div>
+  </div>
+  <div class="card">
+    <div class="title">Task 3: Pick & Place</div>
+    <video controls src="task3_pick_place.mp4"></video>
+    <img src="screens/task3_pick_place.png" alt="Task 3 screenshot" />
+    <div class="links">
+      <a href="task3_pick_place.mp4">MP4</a>
+      <a href="gifs/task3_pick_place.gif">GIF</a>
+      <a href="screens/task3_pick_place.png">PNG</a>
+    </div>
+  </div>
+  <div class="card">
+    <div class="title">Task 4: Obstacle Pick & Place</div>
+    <video controls src="task4_obstacle_pick_place.mp4"></video>
+    <img src="screens/task4_obstacle_pick_place.png" alt="Task 4 screenshot" />
+    <div class="links">
+      <a href="task4_obstacle_pick_place.mp4">MP4</a>
+      <a href="gifs/task4_obstacle_pick_place.gif">GIF</a>
+      <a href="screens/task4_obstacle_pick_place.png">PNG</a>
+    </div>
+  </div>
+  <div class="card">
+    <div class="title">Task 5: Stacking</div>
+    <video controls src="task5_stacking.mp4"></video>
+    <img src="screens/task5_stacking.png" alt="Task 5 screenshot" />
+    <div class="links">
+      <a href="task5_stacking.mp4">MP4</a>
+      <a href="gifs/task5_stacking.gif">GIF</a>
+      <a href="screens/task5_stacking.png">PNG</a>
+    </div>
+  </div>
+</div>
+<footer>
+  <p>To serve this locally from the artifacts directory, run: <code>python3 -m http.server 8000 --directory /workspace/outputs</code> and open <code>http://localhost:8000/index.html</code>.</p>
+</footer>
+</body>
+</html>
