@@ -56,5 +56,6 @@
       "output_video": "outputs/task7_rrt_reach.mp4"
     }
   ],
-  "all_success": true
+  "all_success": true,
+  "has_mujoco": false
 }

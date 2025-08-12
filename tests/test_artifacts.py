@@ -34,15 +34,16 @@ def test_videos_exist():
 
 def test_pybullet_tasks_success():
     data = read_json(ART_DIR / "results.json")
-    pb = [r for r in data["results"] if r["task"].startswith("task")]  # task1..task6
+    pb = [r for r in data["results"] if r["task"].startswith("task")]  # task1..task7
     assert len(pb) >= 5
     assert all(r["success"] for r in pb), f"PyBullet tasks should succeed: {pb}"
 
 
 def test_mujoco_tasks_present():
     data = read_json(ART_DIR / "results.json")
+    if not data.get("has_mujoco", False):
+        return
     mj = [r for r in data["results"] if r["task"].startswith("mj_")]
-    # At least the 2D reach and cart-pole should be present when mujoco installed
     names = {r["task"] for r in mj}
     assert "mj_reach2d" in names
     assert "mj_cartpole" in names

@@ -36,13 +36,19 @@ if __name__ == "__main__":
     metrics.append(run6("outputs/task6_figure_eight.mp4"))
     metrics.append(run7("outputs/task7_rrt_reach.mp4"))
 
+    included_mj = False
     if HAS_MJ and not args.no_mujoco:
         metrics.append(run_mj_arm("outputs/mj_reach2d.mp4"))
         metrics.append(run_mj_cart("outputs/mj_cartpole.mp4"))
         metrics.append(run_mj_hum("outputs/mj_humanoid_stabilize.mp4"))
+        included_mj = True
 
     results_path = os.path.join("outputs", "results.json")
     with open(results_path, "w") as f:
-        json.dump({"results": metrics, "all_success": all(m.get("success", False) for m in metrics)}, f, indent=2)
+        json.dump({
+            "results": metrics,
+            "all_success": all(m.get("success", False) for m in metrics),
+            "has_mujoco": bool(included_mj)
+        }, f, indent=2)
 
     print(f"Wrote aggregated metrics to {results_path}")

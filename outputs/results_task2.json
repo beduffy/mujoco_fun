@@ -5,5 +5,5 @@
   "coverage_deg": 359.3997405764558,
   "error_threshold": 0.02,
   "coverage_threshold": 320.0,
-  "output_video": "outputs/task2_path_tracing_bench_s0.mp4"
+  "output_video": "outputs/task2_path_tracing.mp4"
 }

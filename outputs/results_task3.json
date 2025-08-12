@@ -3,5 +3,5 @@
   "success": true,
   "cube_to_goal_distance": 0.0,
   "threshold": 0.01,
-  "output_video": "outputs/task3_pick_place_bench_s0.mp4"
+  "output_video": "outputs/task3_pick_place.mp4"
 }
