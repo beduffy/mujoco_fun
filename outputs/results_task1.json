@@ -1,0 +1,7 @@
+{
+  "task": "task1_reach",
+  "success": true,
+  "distance_to_target": 1.2278327200800835e-05,
+  "threshold": 0.1,
+  "output_video": "outputs/task1_reach.mp4"
+}

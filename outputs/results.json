@@ -1,0 +1,46 @@
+{
+  "results": [
+    {
+      "task": "task1_reach",
+      "success": true,
+      "distance_to_target": 1.2278327200800835e-05,
+      "threshold": 0.1,
+      "output_video": "outputs/task1_reach.mp4"
+    },
+    {
+      "task": "task2_path_tracing",
+      "success": true,
+      "mean_radial_error": 4.190197088167438e-05,
+      "coverage_deg": 359.3997405764558,
+      "error_threshold": 0.02,
+      "coverage_threshold": 320.0,
+      "output_video": "outputs/task2_path_tracing.mp4"
+    },
+    {
+      "task": "task3_pick_place",
+      "success": false,
+      "cube_to_goal_distance": 0.305784891931134,
+      "threshold": 0.05,
+      "output_video": "outputs/task3_pick_place.mp4"
+    },
+    {
+      "task": "task4_obstacle_pick_place",
+      "success": false,
+      "cube_to_goal_distance": 0.5412049668744827,
+      "threshold": 0.06,
+      "output_video": "outputs/task4_obstacle_pick_place.mp4"
+    },
+    {
+      "task": "task5_stacking",
+      "success": false,
+      "cube_a_distance": 0.37108489273292844,
+      "cube_b_distance": 2.4133124171487177,
+      "thresholds": {
+        "a": 0.05,
+        "b": 0.06
+      },
+      "output_video": "outputs/task5_stacking.mp4"
+    }
+  ],
+  "all_success": false
+}

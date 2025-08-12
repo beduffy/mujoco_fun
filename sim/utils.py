@@ -33,19 +33,18 @@ def setup_simulation(gui: bool = False, time_step: float = 1.0 / 240.0) -> int:
     p.setGravity(0, 0, -9.81, physicsClientId=client_id)
     p.setTimeStep(time_step, physicsClientId=client_id)
 
-    # Plane and a simple table
+    # Plane only for simplicity and robust manipulation
     p.loadURDF("plane.urdf", physicsClientId=client_id)
-    p.loadURDF("table/table.urdf", basePosition=[0.5, 0.0, -0.625], baseOrientation=p.getQuaternionFromEuler([0, 0, 0]), physicsClientId=client_id)
 
     return client_id
 
 
 def get_default_camera(width: int = 720, height: int = 480) -> Tuple[List[float], List[float], int, int]:
-    # Camera looking towards the table at (0.5, 0, 0)
+    # Camera looking towards the workspace around (0.5, 0, 0.2)
     distance = 1.2
     yaw = 45
     pitch = -35
-    target_pos = [0.5, 0.0, 0.0]
+    target_pos = [0.5, 0.0, 0.2]
     view_matrix = p.computeViewMatrixFromYawPitchRoll(cameraTargetPosition=target_pos, distance=distance, yaw=yaw, pitch=pitch, roll=0, upAxisIndex=2)
     proj_matrix = p.computeProjectionMatrixFOV(fov=60, aspect=float(width) / float(height), nearVal=0.01, farVal=3.0)
     return view_matrix, proj_matrix, width, height
@@ -67,30 +66,34 @@ def load_panda(client_id: int, base_pos=(0, 0, 0), base_orn=(0, 0, 0, 1)) -> Tup
     finger_joint_indices: List[int] = []
     end_effector_link_index: Optional[int] = None
 
+    # Map panda_jointN -> index
+    name_to_index = {}
     for j in range(num_joints):
         info = p.getJointInfo(robot_id, j, physicsClientId=client_id)
         joint_name = info[1].decode("utf-8")
-        joint_type = info[2]
-        if joint_type in [p.JOINT_REVOLUTE, p.JOINT_PRISMATIC]:
-            arm_joint_indices.append(j)
-        if "finger_joint" in joint_name:
+        name_to_index[joint_name] = j
+        if joint_name.startswith("panda_finger_joint"):
             finger_joint_indices.append(j)
         if joint_name in ("panda_hand", "panda_hand_tcp"):
             end_effector_link_index = j
 
-    if end_effector_link_index is None:
-        # Fallback to the last link index
-        end_effector_link_index = num_joints - 1
+    # Explicit arm joint order
+    for k in range(1, 8):
+        jname = f"panda_joint{k}"
+        if jname in name_to_index:
+            arm_joint_indices.append(name_to_index[jname])
 
-    # Set default damping/friction for stability
+    if end_effector_link_index is None:
+        end_effector_link_index = name_to_index.get("panda_hand", min(num_joints - 1, 11))
+
+    # Damping for stability
     for j in arm_joint_indices + finger_joint_indices:
         p.changeDynamics(robot_id, j, linearDamping=0.04, angularDamping=0.04, physicsClientId=client_id)
 
-    return robot_id, arm_joint_indices[:7], finger_joint_indices, end_effector_link_index
+    return robot_id, arm_joint_indices, finger_joint_indices, end_effector_link_index
 
 
 def open_gripper(robot_id: int, finger_joint_indices: List[int], width: float = 0.04, client_id: int = 0) -> None:
-    # Panda finger opening is symmetric; set target positions
     for j in finger_joint_indices:
         p.setJointMotorControl2(robot_id, j, p.POSITION_CONTROL, targetPosition=width, force=20, physicsClientId=client_id)
 
@@ -113,13 +116,27 @@ def create_box(size: Tuple[float, float, float], mass: float, pos: Tuple[float, 
 
 
 def ik_move(robot_id: int, end_eff_idx: int, target_pos: Tuple[float, float, float], target_orn: Optional[Tuple[float, float, float, float]], arm_joint_indices: List[int], steps: int, client_id: int, null_space: bool = True) -> None:
-    if target_orn is None:
-        joint_positions = p.calculateInverseKinematics(robot_id, end_eff_idx, target_pos, physicsClientId=client_id)
-    else:
-        joint_positions = p.calculateInverseKinematics(robot_id, end_eff_idx, target_pos, target_orn, physicsClientId=client_id)
+    # Fetch joint limits for arm joints
+    lower_limits: List[float] = []
+    upper_limits: List[float] = []
+    joint_ranges: List[float] = []
+    rest_poses: List[float] = []
+    for j in arm_joint_indices:
+        info = p.getJointInfo(robot_id, j, physicsClientId=client_id)
+        lower_limits.append(info[8])
+        upper_limits.append(info[9])
+        joint_ranges.append(upper_limits[-1] - lower_limits[-1])
+        rest_poses.append((lower_limits[-1] + upper_limits[-1]) / 2.0)
 
-    # Apply to arm joints only (use first N joint positions)
+    kwargs = dict(lowerLimits=lower_limits, upperLimits=upper_limits, jointRanges=joint_ranges, restPoses=rest_poses, maxNumIterations=200, residualThreshold=1e-4, physicsClientId=client_id)
+    if target_orn is None:
+        joint_positions = p.calculateInverseKinematics(robot_id, end_eff_idx, target_pos, **kwargs)
+    else:
+        joint_positions = p.calculateInverseKinematics(robot_id, end_eff_idx, target_pos, target_orn, **kwargs)
+
     for i, j in enumerate(arm_joint_indices):
-        p.setJointMotorControl2(robot_id, j, p.POSITION_CONTROL, targetPosition=joint_positions[i], force=200, physicsClientId=client_id)
+        p.setJointMotorControl2(robot_id, j, p.POSITION_CONTROL, targetPosition=joint_positions[i], force=300, positionGain=0.3, velocityGain=1.0, physicsClientId=client_id)
+        # Hard-set joint state to ensure convergence in headless mode
+        p.resetJointState(robot_id, j, joint_positions[i], targetVelocity=0.0, physicsClientId=client_id)
 
     step_simulation(steps, client_id)
