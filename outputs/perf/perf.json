@@ -1,0 +1,25 @@
+{
+  "reach": {
+    "task": "reach_perf",
+    "final_error": 8.93799058432495e-05,
+    "path_length": 0.09967611290306871,
+    "smoothness": 1.5652427803730384e-08,
+    "energy_proxy": 1.078052810736702
+  },
+  "figure8": {
+    "task": "figure8_perf",
+    "mean_error": 0.040274735478458175,
+    "max_error": 0.3327306494520328,
+    "path_length": 0.8868051806461312,
+    "smoothness": 7.652749701795744e-06,
+    "energy_proxy": 4.430367401456437
+  },
+  "rrt": {
+    "task": "rrt_perf",
+    "final_error": 8.801166222252433e-05,
+    "path_length": 1.1934085777717476,
+    "smoothness": 0.027633237177989926,
+    "energy_proxy": 4.216892675114475,
+    "min_clearance": 0.011444272796393344
+  }
+}
