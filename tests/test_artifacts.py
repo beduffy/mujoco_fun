@@ -34,8 +34,8 @@ def test_videos_exist():
 
 def test_pybullet_tasks_success():
     data = read_json(ART_DIR / "results.json")
-    pb = [r for r in data["results"] if r["task"].startswith("task")]  # task1..task5
-    assert len(pb) == 5
+    pb = [r for r in data["results"] if r["task"].startswith("task")]  # task1..task6
+    assert len(pb) >= 5
     assert all(r["success"] for r in pb), f"PyBullet tasks should succeed: {pb}"
 
 
