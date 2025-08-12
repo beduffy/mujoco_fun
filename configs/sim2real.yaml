@@ -1,0 +1,21 @@
+# Sim2Real configuration template
+robot:
+  urdf_path: franka_panda/panda.urdf
+  joint_velocity_limit: 1.0
+  position_gain: 0.5
+  velocity_gain: 1.0
+controller:
+  kp_cartesian: 4.0
+  damping: 0.001
+  nullspace_weight: 0.1
+  rate_hz: 240
+safety:
+  joint_velocity_max: 1.0
+  rate_limit_step: 0.1
+randomization:
+  mass_scale: [0.8, 1.2]
+  friction_scale: [0.6, 1.2]
+  camera_jitter_xy: 0.05
+  camera_jitter_z: 0.05
+seeds:
+  eval_seeds: 3
