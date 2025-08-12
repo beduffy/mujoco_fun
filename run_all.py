@@ -1,5 +1,6 @@
 import os
 import json
+import argparse
 
 from tasks.task1_reach import run as run1
 from tasks.task2_path_tracing import run as run2
@@ -7,15 +8,21 @@ from tasks.task3_pick_place import run as run3
 from tasks.task4_obstacle_pick_place import run as run4
 from tasks.task5_stacking import run as run5
 
-# Optional MuJoCo task
+# Optional MuJoCo tasks
+HAS_MJ = False
 try:
-    from mj.tasks_mj_humanoid import run as run_mj
+    from mj.tasks_mj_humanoid import run as run_mj_hum
+    from mj.tasks_mj_reach2d import run as run_mj_arm
     HAS_MJ = True
 except Exception:
     HAS_MJ = False
 
 
 if __name__ == "__main__":
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--no-mujoco", action="store_true", help="Skip MuJoCo tasks")
+    args = parser.parse_args()
+
     os.makedirs("outputs", exist_ok=True)
     metrics = []
     metrics.append(run1("outputs/task1_reach.mp4"))
@@ -24,10 +31,10 @@ if __name__ == "__main__":
     metrics.append(run4("outputs/task4_obstacle_pick_place.mp4"))
     metrics.append(run5("outputs/task5_stacking.mp4"))
 
-    if HAS_MJ:
-        metrics.append(run_mj("outputs/mj_humanoid_stabilize.mp4"))
+    if HAS_MJ and not args.no_mujoco:
+        metrics.append(run_mj_arm("outputs/mj_reach2d.mp4"))
+        metrics.append(run_mj_hum("outputs/mj_humanoid_stabilize.mp4"))
 
-    # Aggregate results
     results_path = os.path.join("outputs", "results.json")
     with open(results_path, "w") as f:
         json.dump({"results": metrics, "all_success": all(m.get("success", False) for m in metrics)}, f, indent=2)

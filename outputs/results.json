@@ -40,7 +40,21 @@
         "b": 0.01
       },
       "output_video": "outputs/task5_stacking.mp4"
+    },
+    {
+      "task": "mj_reach2d",
+      "success": false,
+      "ee_error": 0.029354760976905377,
+      "threshold": 0.02,
+      "output_video": "outputs/mj_reach2d.mp4"
+    },
+    {
+      "task": "mj_humanoid_stabilize",
+      "success": false,
+      "qpos_deviation": 6.47112479710378,
+      "threshold": 0.5,
+      "output_video": "outputs/mj_humanoid_stabilize.mp4"
     }
   ],
-  "all_success": true
+  "all_success": false
 }
