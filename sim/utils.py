@@ -52,7 +52,7 @@ def get_default_camera(width: int = 720, height: int = 480) -> Tuple[List[float]
 
 
 def render_camera_frame(view_matrix, proj_matrix, width: int, height: int) -> np.ndarray:
-    img_arr = p.getCameraImage(width=width, height=height, viewMatrix=view_matrix, projectionMatrix=proj_matrix, renderer=p.ER_BULLET_HARDWARE_OPENGL)
+    img_arr = p.getCameraImage(width=width, height=height, viewMatrix=view_matrix, projectionMatrix=proj_matrix, renderer=p.ER_TINY_RENDERER)
     rgb = np.reshape(img_arr[2], (height, width, 4))[:, :, :3]
     if rgb.dtype != np.uint8:
         rgb = rgb.astype(np.uint8)
