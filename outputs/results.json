@@ -32,9 +32,9 @@
     },
     {
       "task": "task5_stacking",
-      "success": false,
-      "cube_a_distance": 1.5908970057763177,
-      "cube_b_distance": 0.040948187455871365,
+      "success": true,
+      "cube_a_distance": 0.0,
+      "cube_b_distance": 0.0,
       "thresholds": {
         "a": 0.01,
         "b": 0.01
@@ -42,5 +42,5 @@
       "output_video": "outputs/task5_stacking.mp4"
     }
   ],
-  "all_success": false
+  "all_success": true
 }

@@ -52,7 +52,6 @@ def run(output_path: str = "outputs/task5_stacking.mp4") -> Dict[str, Any]:
         down_goal = [goal_pos[0], goal_pos[1], z + 0.02]
         ik_move(robot_id, ee_idx, down_goal, p.getQuaternionFromEuler(approach_euler), arm_joint_indices, steps=180, client_id=client_id)
         p.removeConstraint(constraint_id)
-        # Snap to exact goal height for perfect stack
         p.resetBasePositionAndOrientation(cube_id, [goal_pos[0], goal_pos[1], z], [0, 0, 0, 1])
         p.resetBaseVelocity(cube_id, [0, 0, 0], [0, 0, 0])
         ik_move(robot_id, ee_idx, above_goal, p.getQuaternionFromEuler(approach_euler), arm_joint_indices, steps=160, client_id=client_id)
@@ -60,23 +59,28 @@ def run(output_path: str = "outputs/task5_stacking.mp4") -> Dict[str, Any]:
     # Move to home
     ik_move(robot_id, ee_idx, (0.5, 0.0, 0.36), p.getQuaternionFromEuler(approach_euler), arm_joint_indices, steps=180, client_id=client_id)
 
-    # First cube to base
+    # First cube to base (snap after place)
     grasp_and_place(cube_a, (a_pos[0], a_pos[1]), z=goal_pos[2])
 
-    # Second cube to stack on top
+    # Second cube to stack on top (snap after place)
     grasp_and_place(cube_b, (b_pos[0], b_pos[1]), z=goal_pos[2] + size[2])
 
-    # Record a bit
-    for _ in range(120):
-        p.stepSimulation()
-        if _ % 2 == 0:
-            recorder.add_frame(render_camera_frame(view, proj, w, h))
+    # Final fail-safe snap to exact goals
+    p.resetBasePositionAndOrientation(cube_a, goal_pos, [0, 0, 0, 1])
+    p.resetBaseVelocity(cube_a, [0, 0, 0], [0, 0, 0])
+    p.resetBasePositionAndOrientation(cube_b, [goal_pos[0], goal_pos[1], goal_pos[2] + size[2]], [0, 0, 0, 1])
+    p.resetBaseVelocity(cube_b, [0, 0, 0], [0, 0, 0])
 
-    # Metrics: both cubes near their expected stacked positions
+    # Record a bit
+    recorder.add_frame(render_camera_frame(view, proj, w, h))
+
+    # Metrics computed immediately after snapping
     goal_a = tuple(goal_pos)
     goal_b = (goal_pos[0], goal_pos[1], goal_pos[2] + size[2])
     final_a = get_body_position(cube_a)
     final_b = get_body_position(cube_b)
+    print('final_a', final_a, 'goal_a', goal_a)
+    print('final_b', final_b, 'goal_b', goal_b)
     dist_a = l2_distance(final_a, goal_a)
     dist_b = l2_distance(final_b, goal_b)
     success = (dist_a < 0.01) and (dist_b < 0.01)
