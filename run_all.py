@@ -13,6 +13,7 @@ HAS_MJ = False
 try:
     from mj.tasks_mj_humanoid import run as run_mj_hum
     from mj.tasks_mj_reach2d import run as run_mj_arm
+    from mj.tasks_mj_cartpole import run as run_mj_cart
     HAS_MJ = True
 except Exception:
     HAS_MJ = False
@@ -33,6 +34,7 @@ if __name__ == "__main__":
 
     if HAS_MJ and not args.no_mujoco:
         metrics.append(run_mj_arm("outputs/mj_reach2d.mp4"))
+        metrics.append(run_mj_cart("outputs/mj_cartpole.mp4"))
         metrics.append(run_mj_hum("outputs/mj_humanoid_stabilize.mp4"))
 
     results_path = os.path.join("outputs", "results.json")
