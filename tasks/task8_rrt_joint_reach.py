@@ -18,7 +18,7 @@ def run(output_path: str = "outputs/task8_rrt_joint_reach.mp4") -> Dict[str, Any
     planner = JointSpacePlanner(obstacle_size, obstacle_pos)
 
     # current and goal joint vectors
-    q_start = np.array([s[0] for s in p.getJointStates(robot_id, arm_joint_indices)])
+    q_start = np.array([s[0] for s in p.getJointStates(robot_id, arm_joint_indices, physicsClientId=cid)])
     # sample a goal EE pose and compute IK for goal
     goal_ee = [0.70, 0.15, 0.30]
     q_goal_full = p.calculateInverseKinematics(robot_id, ee_idx, goal_ee)
