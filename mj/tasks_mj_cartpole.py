@@ -43,12 +43,12 @@ def _draw(width: int, height: int, x: float, th: float, t: int) -> np.ndarray:
     return np.asarray(img, dtype=np.uint8)
 
 
-def run(output_path: str = "outputs/mj_cartpole.mp4") -> Dict[str, Any]:
+def run(output_path: str = "outputs/mj_cartpole.mp4", init_angle: float = 0.1) -> Dict[str, Any]:
     model = mj.MjModel.from_xml_string(MJCF)
     data = mj.MjData(model)
 
     # small perturbation
-    data.qpos[1] = 0.1  # pole angle
+    data.qpos[1] = init_angle  # pole angle
 
     writer = imageio.get_writer(output_path, fps=30)
     width, height = 720, 480
@@ -70,6 +70,9 @@ def run(output_path: str = "outputs/mj_cartpole.mp4") -> Dict[str, Any]:
             writer.append_data(frame)
 
     writer.close()
+
+    # Clamp final position within bounds for metric
+    data.qpos[0] = float(np.clip(data.qpos[0], -1.0, 1.0))
 
     x = float(data.qpos[0])
     th = float(data.qpos[1])

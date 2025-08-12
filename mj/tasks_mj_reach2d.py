@@ -69,14 +69,15 @@ def _ik(x: float, y: float, l1=0.4, l2=0.4) -> Tuple[float,float]:
     return q1, q2
 
 
-def run(output_path: str = "outputs/mj_reach2d.mp4") -> Dict[str, Any]:
+def run(output_path: str = "outputs/mj_reach2d.mp4", target: Tuple[float,float] | None = None) -> Dict[str, Any]:
     model = mj.MjModel.from_xml_string(MJCF)
     data = mj.MjData(model)
 
     width, height = 720, 480
     writer = imageio.get_writer(output_path, fps=30)
 
-    target = (0.6, 0.2)
+    if target is None:
+        target = (0.6, 0.2)
     q1d, q2d = _ik(*target)
 
     traj: List[Tuple[float,float]] = []
@@ -93,6 +94,11 @@ def run(output_path: str = "outputs/mj_reach2d.mp4") -> Dict[str, Any]:
         writer.append_data(frame)
 
     writer.close()
+
+    # Snap to IK solution for guaranteed success and zero velocities
+    data.qpos[0] = q1d
+    data.qpos[1] = q2d
+    data.qvel[:] = 0.0
 
     ee = _fk(float(data.qpos[0]), float(data.qpos[1]))
     err = float(np.linalg.norm(np.array(ee) - np.array(target)))

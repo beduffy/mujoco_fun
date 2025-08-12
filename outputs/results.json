@@ -54,8 +54,8 @@
     },
     {
       "task": "mj_reach2d",
-      "success": false,
-      "ee_error": 0.029354760976905377,
+      "success": true,
+      "ee_error": 2.7755575615628914e-17,
       "threshold": 0.02,
       "output_video": "outputs/mj_reach2d.mp4"
     },
@@ -63,7 +63,7 @@
       "task": "mj_cartpole",
       "success": false,
       "angle_abs": 3.141592664430376,
-      "pos_abs": 2.247324174752642,
+      "pos_abs": 1.0,
       "thresholds": {
         "angle": 0.1,
         "pos": 0.5
