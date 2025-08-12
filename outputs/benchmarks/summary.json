@@ -1,0 +1,30 @@
+{
+  "task1_reach": {
+    "success_rate": 1.0,
+    "avg_runtime_s": 34.70215964317322
+  },
+  "task2_path_tracing": {
+    "success_rate": 1.0,
+    "avg_runtime_s": 53.21432113647461
+  },
+  "task3_pick_place": {
+    "success_rate": 1.0,
+    "avg_runtime_s": 0.3767509460449219
+  },
+  "task4_obstacle_pick_place": {
+    "success_rate": 1.0,
+    "avg_runtime_s": 22.752790212631226
+  },
+  "task5_stacking": {
+    "success_rate": 1.0,
+    "avg_runtime_s": 0.4724738597869873
+  },
+  "task6_figure_eight": {
+    "success_rate": 1.0,
+    "avg_runtime_s": 65.70802664756775
+  },
+  "task7_rrt_reach": {
+    "success_rate": 1.0,
+    "avg_runtime_s": 10.874507188796997
+  }
+}
