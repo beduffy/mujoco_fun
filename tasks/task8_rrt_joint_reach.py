@@ -19,20 +19,20 @@ def run(output_path: str = "outputs/task8_rrt_joint_reach.mp4") -> Dict[str, Any
 
     # Derive arm joints by name to avoid API differences
     arm_joints_task = []
-    for j in range(p.getNumJoints(robot_id)):
-        info = p.getJointInfo(robot_id, j)
+    for j in range(p.getNumJoints(robot_id, physicsClientId=cid)):
+        info = p.getJointInfo(robot_id, j, physicsClientId=cid)
         if info[2] != p.JOINT_FIXED and info[1].decode("utf-8").startswith("panda_joint"):
             arm_joints_task.append(j)
 
-    q_start = np.array([p.getJointState(robot_id, j)[0] for j in arm_joints_task])
+    q_start = np.array([p.getJointState(robot_id, j, physicsClientId=cid)[0] for j in arm_joints_task])
 
     # Build a reachable goal
     goal_ee = [0.68, 0.12, 0.30]
-    ee_state = p.getLinkState(robot_id, ee_idx)
+    ee_state = p.getLinkState(robot_id, ee_idx, physicsClientId=cid)
     target_orn = ee_state[1]
     q_goal = None
     try:
-        q_goal_full = p.calculateInverseKinematics(robot_id, ee_idx, goal_ee, targetOrientation=target_orn)
+        q_goal_full = p.calculateInverseKinematics(robot_id, ee_idx, goal_ee, targetOrientation=target_orn, physicsClientId=cid)
         q_goal = np.array([q_goal_full[i] for i in range(len(arm_joints_task))])
     except Exception:
         pass
@@ -46,20 +46,20 @@ def run(output_path: str = "outputs/task8_rrt_joint_reach.mp4") -> Dict[str, Any
 
     if not path:
         # fallback: direct joint motion
-        p.setJointMotorControlArray(robot_id, arm_joints_task, p.POSITION_CONTROL, targetPositions=q_goal.tolist())
+        p.setJointMotorControlArray(robot_id, arm_joints_task, p.POSITION_CONTROL, targetPositions=q_goal.tolist(), physicsClientId=cid)
         for _ in range(240):
-            p.stepSimulation()
+            p.stepSimulation(physicsClientId=cid)
             if _ % 3 == 0:
                 recorder.add_frame(render_camera_frame(view, proj, w, h))
     else:
         for q in path:
-            p.setJointMotorControlArray(robot_id, arm_joints_task, p.POSITION_CONTROL, targetPositions=q.tolist())
+            p.setJointMotorControlArray(robot_id, arm_joints_task, p.POSITION_CONTROL, targetPositions=q.tolist(), physicsClientId=cid)
             for _ in range(60):
-                p.stepSimulation()
+                p.stepSimulation(physicsClientId=cid)
                 if _ % 3 == 0:
                     recorder.add_frame(render_camera_frame(view, proj, w, h))
 
-    final = np.array(p.getLinkState(robot_id, ee_idx)[0])
+    final = np.array(p.getLinkState(robot_id, ee_idx, physicsClientId=cid)[0])
     dist = float(np.linalg.norm(final - np.array(goal_ee)))
     success = dist < 0.08
 
