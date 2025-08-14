@@ -1,0 +1,5 @@
+{
+  "episodes": 5,
+  "successes": 5,
+  "dataset": "/workspace/outputs/datasets/panda_reach_dataset.npz"
+}

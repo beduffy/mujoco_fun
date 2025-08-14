@@ -1,0 +1,8 @@
+task,success_rate,avg_runtime_s
+task1_reach,1.0,33.851547718048096
+task2_path_tracing,1.0,52.76673412322998
+task3_pick_place,1.0,0.40062618255615234
+task4_obstacle_pick_place,1.0,22.737937211990356
+task5_stacking,1.0,0.4897620677947998
+task6_figure_eight,1.0,65.63645553588867
+task7_rrt_reach,1.0,10.787567138671875

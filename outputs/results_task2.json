@@ -1,0 +1,9 @@
+{
+  "task": "task2_path_tracing",
+  "success": true,
+  "mean_radial_error": 4.190197088167438e-05,
+  "coverage_deg": 359.3997405764558,
+  "error_threshold": 0.02,
+  "coverage_threshold": 320.0,
+  "output_video": "outputs/task2_path_tracing.mp4"
+}

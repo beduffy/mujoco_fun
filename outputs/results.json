@@ -1,0 +1,86 @@
+{
+  "results": [
+    {
+      "task": "task1_reach",
+      "success": true,
+      "distance_to_target": 1.2278327200800835e-05,
+      "threshold": 0.1,
+      "output_video": "outputs/task1_reach.mp4"
+    },
+    {
+      "task": "task2_path_tracing",
+      "success": true,
+      "mean_radial_error": 4.190197088167438e-05,
+      "coverage_deg": 359.3997405764558,
+      "error_threshold": 0.02,
+      "coverage_threshold": 320.0,
+      "output_video": "outputs/task2_path_tracing.mp4"
+    },
+    {
+      "task": "task3_pick_place",
+      "success": false,
+      "cube_to_goal_distance": 0.3057858662240153,
+      "threshold": 0.03,
+      "output_video": "outputs/task3_pick_place.mp4"
+    },
+    {
+      "task": "task4_obstacle_pick_place",
+      "success": true,
+      "cube_to_goal_distance": 0.0043311787923489995,
+      "threshold": 0.01,
+      "output_video": "outputs/task4_obstacle_pick_place.mp4"
+    },
+    {
+      "task": "task5_stacking",
+      "success": false,
+      "cube_a_distance": 0.3710837968337744,
+      "cube_b_distance": 2.413288057527783,
+      "thresholds": {
+        "a": 0.03,
+        "b": 0.04
+      },
+      "output_video": "outputs/task5_stacking.mp4"
+    },
+    {
+      "task": "task6_figure_eight",
+      "success": true,
+      "mean_track_error": 0.021621249047947034,
+      "threshold": 0.03,
+      "output_video": "outputs/task6_figure_eight.mp4"
+    },
+    {
+      "task": "task7_rrt_reach",
+      "success": true,
+      "ee_goal_distance": 9.051851054768393e-05,
+      "threshold": 0.04,
+      "output_video": "outputs/task7_rrt_reach.mp4"
+    },
+    {
+      "task": "mj_reach2d",
+      "success": true,
+      "ee_error": 2.7755575615628914e-17,
+      "threshold": 0.02,
+      "output_video": "outputs/mj_reach2d.mp4"
+    },
+    {
+      "task": "mj_cartpole",
+      "success": false,
+      "angle_abs": 3.141592664430376,
+      "pos_abs": 1.0,
+      "thresholds": {
+        "angle": 0.1,
+        "pos": 0.5
+      },
+      "output_video": "outputs/mj_cartpole.mp4"
+    },
+    {
+      "task": "mj_humanoid_stabilize",
+      "success": false,
+      "qpos_deviation": 4.634206053965975,
+      "threshold": 0.2,
+      "output_video": "outputs/mj_humanoid_stabilize.mp4"
+    }
+  ],
+  "all_success": false,
+  "has_mujoco": true
+}

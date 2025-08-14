@@ -1,0 +1,7 @@
+{"task": "task1_reach", "seed": 0, "success": true, "runtime_s": 33.851547718048096}
+{"task": "task2_path_tracing", "seed": 0, "success": true, "runtime_s": 52.76673412322998}
+{"task": "task3_pick_place", "seed": 0, "success": true, "runtime_s": 0.40062618255615234}
+{"task": "task4_obstacle_pick_place", "seed": 0, "success": true, "runtime_s": 22.737937211990356}
+{"task": "task5_stacking", "seed": 0, "success": true, "runtime_s": 0.4897620677947998}
+{"task": "task6_figure_eight", "seed": 0, "success": true, "runtime_s": 65.63645553588867}
+{"task": "task7_rrt_reach", "seed": 0, "success": true, "runtime_s": 10.787567138671875}
